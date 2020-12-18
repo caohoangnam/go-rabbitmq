@@ -35,7 +35,7 @@ func (a *AMQP) Setup() (err error) {
 	}
 	defer channel.Close()
 
-	if err := a.declareCreate(channel); err != nil {
+	if err = a.declareCreate(channel); err != nil {
 		return
 	}
 	return
@@ -77,7 +77,7 @@ func (a *AMQP) declareCreate(channel *amqp.Channel) (err error) {
 		a.config.Create.RoutingKey,
 		a.config.Create.ExchangeName,
 		false,
-		false,
+		nil,
 	)
 	if err != nil {
 		err = errors.Wrap(err, "Failed to bind queue")

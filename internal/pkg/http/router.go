@@ -20,5 +20,5 @@ func NewRouter() *Router {
 func (r *Router) RegisterUser(rabbitmq *rabbitmq.RabbitMQ) {
 	create := user.NewCreate(rabbitmq)
 
-	r.Handler("/users/create", create.Handle)
+	r.HandleFunc("/users/create", create.Handle)
 }

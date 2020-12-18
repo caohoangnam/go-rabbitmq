@@ -29,7 +29,7 @@ func main() {
 
 	// HTTP Router
 	router := http.NewRouter()
-	router.RegisterUser()
+	router.RegisterUser(rbt)
 
 	// HTTP Server
 	server := http.NewServer(conf.HTTPAddress, router)

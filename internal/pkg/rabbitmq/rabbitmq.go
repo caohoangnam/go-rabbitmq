@@ -1,11 +1,12 @@
 package rabbitmq
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"sync"
 	"time"
+
+	"github.com/pkg/errors"
 
 	"github.com/streadway/amqp"
 )
@@ -76,6 +77,7 @@ func (r *RabbitMQ) Shutdown() error {
 	if r.connection != nil {
 		return r.connection.Close()
 	}
+	return nil
 }
 
 func (r *RabbitMQ) Channel() (*amqp.Channel, error) {
@@ -101,7 +103,7 @@ WATCH:
 
 		var err error
 
-		for i = 1; i <= r.config.Reconnect.MaxAttempt; i++ {
+		for i := 1; i <= r.config.Reconnect.MaxAttempt; i++ {
 			r.mux.RLock()
 			r.connection, err = amqp.DialConfig(fmt.Sprintf(
 				"%s://%s:%s@%s:%s/%s",
@@ -110,7 +112,7 @@ WATCH:
 				r.config.Password,
 				r.config.Host,
 				r.config.Port,
-				r.config.Vhost,
+				r.config.VHost,
 			), r.dialConfig)
 			r.mux.RUnlock()
 

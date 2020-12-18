@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -20,10 +21,10 @@ func NewCreate(rabbitmq *rabbitmq.RabbitMQ) Create {
 	}
 }
 
-func (c Create) Handle(r *http.Request, w http.ResponseWriter) {
+func (c Create) Handle(w http.ResponseWriter, r *http.Request) {
 	id := r.Header.Get("ID")
 	if err := c.publish(id); err != nil {
-		log.Println(errors.Wrap(err, "Failed to create %s", id))
+		log.Println(errors.Wrap(err, fmt.Sprintf("Failed to create %s", id)))
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -70,5 +71,5 @@ func (c Create) publish(msg string) error {
 		return errors.New("Failed msg delivery confirm to exchange/queue timed out")
 	}
 
-	return
+	return nil
 }
