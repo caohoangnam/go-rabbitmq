@@ -18,9 +18,9 @@ func New() Config {
 
 	conf.HTTPAddress = ":8080"
 
-	conf.RabbitMQ.Schema = "ampq"
-	conf.RabbitMQ.Username = "caonam"
-	conf.RabbitMQ.Password = "password"
+	conf.RabbitMQ.Schema = "amqp"
+	conf.RabbitMQ.Username = "guest"
+	conf.RabbitMQ.Password = "guest"
 	conf.RabbitMQ.Host = "0.0.0.0"
 	conf.RabbitMQ.Port = "5672"
 	conf.RabbitMQ.VHost = "my_app"
