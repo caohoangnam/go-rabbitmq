@@ -72,7 +72,7 @@ func (r *RabbitMQ) Connect() (err error) {
 
 func (r *RabbitMQ) Connection() *amqp.Connection { return r.connection }
 
-func (r *RabbitMQ) Shutdonw() error {
+func (r *RabbitMQ) Shutdown() error {
 	if r.connection != nil {
 		return r.connection.Close()
 	}
