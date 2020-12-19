@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/pkg/errors"
 	"github.com/streadway/amqp"
@@ -67,8 +66,8 @@ func (c Create) publish(msg string) error {
 		}
 	case <-channel.NotifyReturn(make(chan amqp.Return)):
 		return errors.New("Failed to delivery msg to exchange/queue")
-	case <-time.After(c.rabbitmq.ChannelNotifyTimeout):
-		return errors.New("Failed msg delivery confirm to exchange/queue timed out")
+		//	case <-time.After(c.rabbitmq.ChannelNotifyTimeout):
+		//		return errors.New("Failed msg delivery confirm to exchange/queue timed out")
 	}
 
 	return nil

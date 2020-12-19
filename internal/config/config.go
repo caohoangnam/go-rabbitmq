@@ -11,6 +11,7 @@ type Config struct {
 	HTTPAddress string
 	RabbitMQ    rabbitmq.Config
 	UserAMQP    user.AMQPConfig
+	Consumer    rabbitmq.ConsumerConfig
 }
 
 func New() Config {
@@ -34,6 +35,15 @@ func New() Config {
 	conf.UserAMQP.Create.ExchangeType = "direct"
 	conf.UserAMQP.Create.RoutingKey = "create"
 	conf.UserAMQP.Create.QueueName = "user_create"
+
+	conf.Consumer.ExchangeName = "user"
+	conf.Consumer.ExchangeType = "direct"
+	conf.Consumer.RoutingKey = "create"
+	conf.Consumer.QueueName = "user_create"
+	conf.Consumer.ConsumerCount = 60
+	conf.Consumer.PrefetchCount = 1
+	conf.Consumer.Reconnect.Interval = 1 * time.Second
+	conf.Consumer.Reconnect.MaxAttempt = 60
 
 	return conf
 }
