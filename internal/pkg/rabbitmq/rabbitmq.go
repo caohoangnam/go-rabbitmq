@@ -64,6 +64,7 @@ func (r *RabbitMQ) Connect() (err error) {
 		return
 	}
 
+	fmt.Println("START: Connect rabbitmq")
 	r.connection = conn
 
 	go r.reconnect()
@@ -71,7 +72,12 @@ func (r *RabbitMQ) Connect() (err error) {
 	return
 }
 
-func (r *RabbitMQ) Connection() *amqp.Connection { return r.connection }
+func (r *RabbitMQ) Connection() (*amqp.Connection, error) {
+	if r.connection == nil || r.connection.IsClosed() {
+		return nil, errors.New("Connection is not open")
+	}
+	return r.connection, nil
+}
 
 func (r *RabbitMQ) Shutdown() error {
 	if r.connection != nil {
