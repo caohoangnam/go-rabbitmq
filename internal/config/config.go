@@ -40,7 +40,7 @@ func New() Config {
 	conf.Consumer.ExchangeType = "direct"
 	conf.Consumer.RoutingKey = "create"
 	conf.Consumer.QueueName = "user_create"
-	conf.Consumer.ConsumerCount = 60
+	conf.Consumer.ConsumerCount = 1
 	conf.Consumer.PrefetchCount = 1
 	conf.Consumer.Reconnect.Interval = 1 * time.Second
 	conf.Consumer.Reconnect.MaxAttempt = 60
